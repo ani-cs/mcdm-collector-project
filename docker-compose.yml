@@ -11,6 +11,13 @@ services:
     volumes:
       - .:/app
     working_dir: /app
+    extra_hosts:
+      # Lets the backend reach the local demo Supabase stack (started via
+      # `npx supabase start`, which runs outside this compose project) at
+      # SUPABASE_URL=http://host.docker.internal:54321. Docker Desktop
+      # (Windows/Mac) resolves this automatically; this entry makes it work
+      # on Linux too.
+      - "host.docker.internal:host-gateway"
 
   frontend:
     build: ./frontend
